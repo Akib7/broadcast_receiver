@@ -1,8 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'second_page.dart';
+
 class InputWidget extends StatelessWidget {
-  const InputWidget({Key? key}) : super(key: key);
+  InputWidget({Key? key}) : super(key: key);
+
+  TextEditingController text = TextEditingController();
+  SecondPage sPage = const SecondPage();
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +16,7 @@ class InputWidget extends StatelessWidget {
       ),
       body: Column(
         children: const [
-          Text('data'),
+          Text(''),
         ],
       ),
     );

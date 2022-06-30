@@ -61,8 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
     BroadcastReceiver().subscribe<String>("BROADCAST_RECEIVER_DEMO",
         (String message) {
       print("BroadcastReceiver() data => $message");
-      final snackBar = SnackBar(content: Text('Initial broadcast $message'));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Text(message);
+      // final snackBar = SnackBar(content: Text('Initial broadcast $message'));
+      // ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
     BroadcastReceiver().publish<String>("Demo", arguments: message);
   }
