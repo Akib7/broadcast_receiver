@@ -39,9 +39,12 @@ class _SecondPageState extends State<SecondPage> {
       appBar: AppBar(
         title: const Text('Second Page'),
       ),
-      body: Column(children: [
-        TextField(
-          controller: inputController,
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Padding(
+          padding: const EdgeInsets.all(26.0),
+          child: TextField(
+            controller: inputController,
+          ),
         ),
         ElevatedButton(
           onPressed: counter,
