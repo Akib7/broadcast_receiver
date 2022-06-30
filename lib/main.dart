@@ -36,7 +36,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   String message = "Hello";
 
   String dropdownValue = 'Custom broadcast receiver';
@@ -60,10 +59,17 @@ class _MyHomePageState extends State<MyHomePage> {
     //Subscribe broadcast
     BroadcastReceiver().subscribe<String>("BROADCAST_RECEIVER_DEMO",
         (String message) {
-      print("BroadcastReceiver() data => $message");
-      Text(message);
-      // final snackBar = SnackBar(content: Text('Initial broadcast $message'));
-      // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      // print("BroadcastReceiver() data => $message");
+      // Center(
+      //   child: Text(
+      //     message,
+      //     style: TextStyle(
+      //       color: Colors.black,
+      //     ),
+      //   ),
+      // );
+      final snackBar = SnackBar(content: Text('Initial broadcast $message'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
     BroadcastReceiver().publish<String>("Demo", arguments: message);
   }
@@ -75,24 +81,24 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-      Get.to(() => SecondPage());
-    });
-    //Publish broadcast
-    // BroadcastReceiver().publish<String>("BROADCAST_RECEIVER_DEMO",
-    //     arguments: _counter.toString());
+  // void _incrementCounter() {
+  //   setState(() {
 
-    BroadcastReceiver()
-        .publish<String>("BROADCAST_RECEIVER_DEMO", arguments: message);
-  }
+  //     Get.to(() => SecondPage());
+  //   });
+  //   //Publish broadcast
+  //   // BroadcastReceiver().publish<String>("BROADCAST_RECEIVER_DEMO",
+  //   //     arguments: _counter.toString());
+
+  //   BroadcastReceiver()
+  //       .publish<String>("BROADCAST_RECEIVER_DEMO", arguments: message);
+  // }
 
   moveToPage() {
     if (dropdownValue == 'Custom broadcast receiver') {
-      Get.to(() => SecondPage());
+      Get.to(() => const SecondPage());
     } else if (dropdownValue == 'Wifi RTT state change receiver') {
-      Get.to(() => ThirdPage());
+      Get.to(() => const ThirdPage());
     } else if (dropdownValue == 'System battery notification receiver') {
       Get.to(() => const FourthPage());
     }
@@ -136,10 +142,6 @@ class _MyHomePageState extends State<MyHomePage> {
               }).toList(),
               // selectedItemBuilder: ,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
             ElevatedButton(
               onPressed: moveToPage,
               child: const Text('Continue'),
@@ -147,11 +149,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ),
     );
   }
 }

@@ -17,7 +17,7 @@ class _SecondPageState extends State<SecondPage> {
     //     arguments: _counter.toString());
     BroadcastReceiver().subscribe<String>("BROADCAST_RECEIVER_DEMO",
         (String message) {
-      print("BroadcastReceiver() data => $message");
+      // print("BroadcastReceiver() data => $message");
       Text(message);
       // final snackBar = SnackBar(content: Text('Initial broadcast $message'));
       // ScaffoldMessenger.of(context).showSnackBar(snackBar);

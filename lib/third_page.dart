@@ -1,19 +1,37 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 
-class ThirdPage extends StatelessWidget {
-  ThirdPage({Key? key}) : super(key: key);
-  var text;
-  Future<Widget> checkInternet() async {
+class ThirdPage extends StatefulWidget {
+  const ThirdPage({Key? key}) : super(key: key);
+
+  @override
+  State<ThirdPage> createState() => _ThirdPageState();
+}
+
+class _ThirdPageState extends State<ThirdPage> {
+  bool activeConnection = false;
+  String T = "";
+  Future checkUserConnection() async {
     try {
-      final result = await InternetAddress.lookup('example.com');
+      final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        text = const Text('connected');
+        setState(() {
+          activeConnection = true;
+          T = "Turn off the data and repress again";
+        });
       }
     } on SocketException catch (_) {
-      text = const Text('not connected');
+      setState(() {
+        activeConnection = false;
+        T = "Turn On the data and repress again";
+      });
     }
-    return text;
+  }
+
+  @override
+  void initState() {
+    checkUserConnection();
+    super.initState();
   }
 
   @override
@@ -25,13 +43,15 @@ class ThirdPage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          FutureBuilder<Widget>(
-              future: checkInternet(),
-              builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }),
+          Text("WiFi Connection? $activeConnection"),
+          const Divider(),
+          Text(T),
+          OutlinedButton(
+            onPressed: () {
+              checkUserConnection();
+            },
+            child: const Text("Check"),
+          ),
         ],
       ),
     );

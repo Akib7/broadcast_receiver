@@ -1,7 +1,8 @@
-import 'package:broadcast_receiver/input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_broadcast_receiver/flutter_broadcast_receiver.dart';
 import 'package:get/get.dart';
+
+import 'battery_percantage.dart';
 
 class FourthPage extends StatefulWidget {
   const FourthPage({Key? key}) : super(key: key);
@@ -17,12 +18,12 @@ class _FourthPageState extends State<FourthPage> {
     //     arguments: _counter.toString());
     BroadcastReceiver().subscribe<String>("BROADCAST_RECEIVER_DEMO",
         (String message) {
-      print("BroadcastReceiver() data => $message");
+      // print("BroadcastReceiver() data => $message");
       Text(message);
       // final snackBar = SnackBar(content: Text('Initial broadcast $message'));
       // ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
-    Get.to(() => InputWidget());
+    Get.to(() => const BatteryPercantage());
     BroadcastReceiver().publish<String>("BROADCAST_RECEIVER_DEMO",
         arguments: inputController.text);
   }
