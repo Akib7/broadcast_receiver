@@ -8,10 +8,10 @@ class ThirdPage extends StatelessWidget {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        text = Text('connected');
+        text = const Text('connected');
       }
     } on SocketException catch (_) {
-      text = Text('not connected');
+      text = const Text('not connected');
     }
     return text;
   }
@@ -28,7 +28,9 @@ class ThirdPage extends StatelessWidget {
           FutureBuilder<Widget>(
               future: checkInternet(),
               builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-                return Container(child: CircularProgressIndicator());
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }),
         ],
       ),
