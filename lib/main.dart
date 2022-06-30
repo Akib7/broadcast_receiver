@@ -1,5 +1,7 @@
+import 'package:broadcast_receiver/second_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_broadcast_receiver/flutter_broadcast_receiver.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +12,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -22,6 +25,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, this.title}) : super(key: key);
+
   final String? title;
 
   @override
@@ -31,6 +35,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   String message = "Hello";
+
+  String dropdownValue = 'Custom broadcast receiver';
+  String holder = '';
+  List<String> name = [
+    'Custom broadcast receiver',
+    'Wifi RTT state change receiver',
+    'System battery notification receiver',
+  ];
+
+  // void getDropDownItem() {
+  //   setState(() {
+  //     holder = dropdownValue;
+  //   });
+  // }
 
   @override
   void initState() {
@@ -56,10 +74,14 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     setState(() {
       _counter++;
+      Get.to(() => const SecondPage());
     });
     //Publish broadcast
-    BroadcastReceiver().publish<String>("BROADCAST_RECEIVER_DEMO",
-        arguments: _counter.toString());
+    // BroadcastReceiver().publish<String>("BROADCAST_RECEIVER_DEMO",
+    //     arguments: _counter.toString());
+
+    BroadcastReceiver()
+        .publish<String>("BROADCAST_RECEIVER_DEMO", arguments: message);
   }
 
   @override
@@ -72,21 +94,48 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            DropdownButton<String>(
+              value: dropdownValue,
+              icon: const Icon(Icons.arrow_drop_down),
+              iconSize: 24,
+              elevation: 16,
+              style: const TextStyle(
+                  color: Colors.red, fontWeight: FontWeight.bold, fontSize: 16),
+              underline: Container(
+                height: 0,
+                color: Colors.deepPurpleAccent,
+              ),
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownValue = newValue!;
+                });
+
+                if (dropdownValue == 'Custom broadcast receiver') {
+                  Get.to(() => const SecondPage());
+                }
+              },
+              items: name.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              // selectedItemBuilder: ,
             ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            ElevatedButton(
+                onPressed: _incrementCounter, child: const Text('Continue'))
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 }
