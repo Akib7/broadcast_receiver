@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 class ThirdPage extends StatelessWidget {
-  const ThirdPage({Key? key}) : super(key: key);
-
-  checkInternet() async {
+  ThirdPage({Key? key}) : super(key: key);
+  var text;
+  Future<Widget> checkInternet() async {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        print('connected');
+        text = Text('connected');
       }
     } on SocketException catch (_) {
-      print('not connected');
+      text = Text('not connected');
     }
+    return text;
   }
 
   @override

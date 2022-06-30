@@ -92,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (dropdownValue == 'Custom broadcast receiver') {
       Get.to(() => SecondPage());
     } else if (dropdownValue == 'Wifi RTT state change receiver') {
-      Get.to(() => const ThirdPage());
+      Get.to(() => ThirdPage());
     } else if (dropdownValue == 'System battery notification receiver') {
       Get.to(() => const FourthPage());
     }
