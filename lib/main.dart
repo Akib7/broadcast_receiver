@@ -1,7 +1,10 @@
 import 'package:broadcast_receiver/second_page.dart';
+import 'package:broadcast_receiver/third_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_broadcast_receiver/flutter_broadcast_receiver.dart';
 import 'package:get/get.dart';
+
+import 'fourth_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -74,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     setState(() {
       _counter++;
-      Get.to(() => const SecondPage());
+      Get.to(() => SecondPage());
     });
     //Publish broadcast
     // BroadcastReceiver().publish<String>("BROADCAST_RECEIVER_DEMO",
@@ -82,6 +85,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
     BroadcastReceiver()
         .publish<String>("BROADCAST_RECEIVER_DEMO", arguments: message);
+  }
+
+  moveToPage() {
+    if (dropdownValue == 'Custom broadcast receiver') {
+      Get.to(() => SecondPage());
+    } else if (dropdownValue == 'Wifi RTT state change receiver') {
+      Get.to(() => const ThirdPage());
+    } else if (dropdownValue == 'System battery notification receiver') {
+      Get.to(() => const FourthPage());
+    }
   }
 
   @override
@@ -110,9 +123,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   dropdownValue = newValue!;
                 });
 
-                if (dropdownValue == 'Custom broadcast receiver') {
-                  Get.to(() => const SecondPage());
-                }
+                // if (dropdownValue == 'Custom broadcast receiver') {
+                //   Get.to(() => const SecondPage());
+                // }
               },
               items: name.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
@@ -127,7 +140,9 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headline4,
             ),
             ElevatedButton(
-                onPressed: _incrementCounter, child: const Text('Continue'))
+              onPressed: moveToPage,
+              child: const Text('Continue'),
+            ),
           ],
         ),
       ),

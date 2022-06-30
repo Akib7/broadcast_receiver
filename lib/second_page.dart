@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_broadcast_receiver/flutter_broadcast_receiver.dart';
+import 'package:get/get.dart';
 
-class SecondPage extends StatelessWidget {
+class SecondPage extends StatefulWidget {
   const SecondPage({Key? key}) : super(key: key);
+
+  @override
+  State<SecondPage> createState() => _SecondPageState();
+}
+
+class _SecondPageState extends State<SecondPage> {
+  void counter() {
+    //Publish broadcast
+    // BroadcastReceiver().publish<String>("BROADCAST_RECEIVER_DEMO",
+    //     arguments: _counter.toString());
+
+    BroadcastReceiver().publish<String>("BROADCAST_RECEIVER_DEMO",
+        arguments: inputController.text);
+  }
+
+  TextEditingController inputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +27,18 @@ class SecondPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Second Page'),
       ),
-      body: Column(children: [TextFormField()]),
+      body: Column(children: [
+        TextField(
+          controller: inputController,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            counter();
+            Get.to(() => const SecondPage());
+          },
+          child: const Text('Continue'),
+        ),
+      ]),
     );
   }
 }
