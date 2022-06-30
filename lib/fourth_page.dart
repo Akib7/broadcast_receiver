@@ -29,29 +29,28 @@ class _FourthPageState extends State<FourthPage> {
 
   TextEditingController inputController = TextEditingController();
 
-  // get retText {
-  //   return inputController;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Second Page'),
       ),
-      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Padding(
-          padding: const EdgeInsets.all(26.0),
-          child: TextField(
-            keyboardType: TextInputType.number,
-            controller: inputController,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(26.0),
+            child: TextField(
+              keyboardType: TextInputType.number,
+              controller: inputController,
+            ),
           ),
-        ),
-        ElevatedButton(
-          onPressed: counter,
-          child: const Text('Continue'),
-        ),
-      ]),
+          ElevatedButton(
+            onPressed: counter,
+            child: const Text('Continue'),
+          ),
+        ],
+      ),
     );
   }
 }
