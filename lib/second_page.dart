@@ -22,7 +22,9 @@ class _SecondPageState extends State<SecondPage> {
       // final snackBar = SnackBar(content: Text('Initial broadcast $message'));
       // ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
-    Get.to(() => InputWidget());
+    Get.to(() => InputWidget(
+          val: inputController.text,
+        ));
     BroadcastReceiver().publish<String>("BROADCAST_RECEIVER_DEMO",
         arguments: inputController.text);
   }

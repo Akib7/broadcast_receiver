@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'second_page.dart';
 
 class InputWidget extends StatelessWidget {
-  InputWidget({Key? key}) : super(key: key);
+  final String val;
+  InputWidget({Key? key, required this.val}) : super(key: key);
 
   TextEditingController text = TextEditingController();
   SecondPage sPage = const SecondPage();
@@ -14,10 +15,16 @@ class InputWidget extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Input Page'),
       ),
-      body: Column(
-        children: const [
-          Text(''),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              val,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }

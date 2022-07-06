@@ -23,7 +23,9 @@ class _FourthPageState extends State<FourthPage> {
       // final snackBar = SnackBar(content: Text('Initial broadcast $message'));
       // ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
-    Get.to(() => const BatteryPercantage());
+    Get.to(() => BatteryPercantage(
+          val: inputController.text,
+        ));
     BroadcastReceiver().publish<String>("BROADCAST_RECEIVER_DEMO",
         arguments: inputController.text);
   }
@@ -34,7 +36,7 @@ class _FourthPageState extends State<FourthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Second Page'),
+        title: const Text('Battery Percentage'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
