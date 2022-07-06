@@ -12,6 +12,7 @@ class MyHomePage extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _MyHomePageState createState() => _MyHomePageState();
 }
 
@@ -49,13 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
       //   ),
       // );
       final snackBar = SnackBar(
-          content: Center(
-        child: Text(
-          message,
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
+          content: Text(
+        'A Broadcast is received\n_counter value is $message',
       ));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });

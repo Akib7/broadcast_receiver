@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'second_page.dart';
 
+// ignore: must_be_immutable
 class InputWidget extends StatelessWidget {
   final String val;
   InputWidget({Key? key, required this.val}) : super(key: key);
